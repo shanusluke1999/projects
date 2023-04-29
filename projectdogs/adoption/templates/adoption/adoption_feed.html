@@ -1,0 +1,29 @@
+{% extends 'v4vapp/base.html' %}
+
+{% block content %}
+<div class="mb-3" style="background-color: #f2f2f2; padding: 10px;">
+    <span style="font-size: 20px; font-weight: bold; ">Join the mission to find loving homes for stray dogs - add a rescue today!</span>
+    <a class="btn btn-danger mt-3" href="{% url 'adoption-create' %}" style="margin-left: 10px;">Add Pet</a>
+</div>
+
+
+
+    {% for pet in pets %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><a href="{% url 'adoption-detail' pet.id %}">{{ pet.name }}</a></h5>
+                <a href="{% url 'adoption-detail' pet.id %}">  <img src="{{ pet.photo.url }}" class="img-fluid" alt="{{ pet.name }}"></a>
+                <p class="card-text">{{ pet.description }}</p>
+                <p class="card-text"><strong>Breed:</strong> {{ pet.breed }}</p>
+                <p class="card-text"><strong>Age:</strong> {{ pet.age }}</p>
+                <p class="card-text"><strong>Gender:</strong> {{ pet.gender }}</p>
+                <p class="card-text"><strong>Size:</strong> {{ pet.size }}</p>
+                <p class="card-text"><strong>Color:</strong> {{ pet.color }}</p>
+                <p class="card-text"><strong>Location:</strong> {{ pet.location }}</p>
+                <p class="card-text"><strong>Contact:</strong> {{ pet.contact }}</p>
+            </div>
+        </div>
+    {% empty %}
+        <p>No pets available for adoption.</p>
+    {% endfor %}
+{% endblock content %}

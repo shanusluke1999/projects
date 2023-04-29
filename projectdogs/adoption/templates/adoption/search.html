@@ -1,0 +1,27 @@
+{% extends 'v4vapp/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h1>Search for a pet</h1>
+  {% csrf_token %}
+
+  <form method="get" action="{% url 'search' %}">
+    {{ form|crispy}}
+    <button type="submit">Search</button>
+  </form>
+
+  {% if pets %}
+    <h2>Results for "{{ query }}"</h2>
+    <ul>
+      {% for pet in pets %}
+        <li>
+          <a href="{% url 'adoption-detail' pet.pk %}">
+            {{ pet.name }} - {{ pet.breed }} - {{ pet.location }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No results found.</p>
+  {% endif %}
+{% endblock %}
